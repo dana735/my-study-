@@ -164,11 +164,9 @@ while이 보이면 👉 "아, 조건이 맞는 동안 숫자를 올려가며 계
 
 
 
-
-
 퀴즈 실행 
 
-```(![alt text](image.png))
+(![alt text](image.png))
 
 ([alt text](image.png)
 
