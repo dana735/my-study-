@@ -2,6 +2,7 @@
 
 파이썬 기초 문법과 과제 학습 내용을 기록하는 공간입니다.
 
+
 ---
 
 ## 📌 1. 과제 개요 (Overview)
@@ -166,9 +167,10 @@ while이 보이면 👉 "아, 조건이 맞는 동안 숫자를 올려가며 계
 
 퀴즈 실행 
 
-(![alt text](image.png))
+<img width="148" height="149" alt="image" src="https://github.com/user-attachments/assets/75657bcf-ad1c-4fb6-8949-802576ca81ad" />
 
-([alt text](image.png)
+<img width="746" height="295" alt="image" src="https://github.com/user-attachments/assets/102b4d6a-21a6-4d8e-a228-491df78cf786" />
+
 
 ## 💡 4. 오늘의 느낀 점 & 배운 점
 * 코딩을 직접 실습하면서 에러를 해결하는 과정이 흥미로웠습니다. 
