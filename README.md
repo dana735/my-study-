@@ -178,4 +178,10 @@ if else 가  같은 선에 있어야 에러 안난다
 * 마크다운 문법을 활용해 공부한 내용을 보기 좋게 정리하는 법을 배웠습니다.
 
 
+대한민국의 수도는?", "서울"
+
+
+<img width="704" height="416" alt="image" src="https://github.com/user-attachments/assets/bf92366c-350b-4eda-9eb4-45af9ed7aa70" />
+
+
   
