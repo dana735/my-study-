@@ -185,5 +185,11 @@ if else 가  같은 선에 있어야 에러 안난다
 
 <img width="704" height="416" alt="image" src="https://github.com/user-attachments/assets/bf92366c-350b-4eda-9eb4-45af9ed7aa70" />
 
+ (quiz2.py)
+
+```python
+# 여기에 quiz2.py의 전체 코드를 복사해서 붙여넣으세요!
+# 그러면 파이썬 문법에 맞춰서 색깔이 예쁘게 들어갑니다.
+
 
   
