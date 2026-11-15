@@ -331,3 +331,4 @@ if __name__ == "__main__":
 - `quiz2.py`: 메인 프로그램 코드
 - `state.json`: 퀴즈 데이터 및 최고 점수 저장 파일 (UTF-8)  
 
+![퀴즈 게임 실행 화면](image.png)
