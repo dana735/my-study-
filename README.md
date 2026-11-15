@@ -2,7 +2,6 @@
 
 파이썬 기초 문법과 과제 학습 내용을 기록하는 공간입니다.
 
-
 ---
 
 ## 📌 1. 과제 개요 (Overview)
@@ -163,85 +162,29 @@ count가 4가 되면 "3 이하"라는 조건에 맞지 않으므로 반복 중�
 
 while이 보이면 👉 "아, 조건이 맞는 동안 숫자를 올려가며 계속 반복하는구나
 
+ ![퀴즈 실행 화면](images/퀴즈실행.png)
+
+ ![터미널 화면](images/terminal.png)
+ 
 
 
 퀴즈 실행 
 
-<img width="148" height="149" alt="image" src="https://github.com/user-attachments/assets/75657bcf-ad1c-4fb6-8949-802576ca81ad" />
+![alt text](image-2.png)
 
-<img width="746" height="295" alt="image" src="https://github.com/user-attachments/assets/102b4d6a-21a6-4d8e-a228-491df78cf786" />
 
 
 ## 💡 4. 오늘의 느낀 점 & 배운 점
 * 코딩을 직접 실습하면서 에러를 해결하는 과정이 흥미로웠습니다. 
 
 if else 가  같은 선에 있어야 에러 안난다 
-
-* 마크다운 문법을 활용해 공부한 내용을 보기 좋게 정리하는 법을 배웠습니다.
-
-
-대한민국의 수도는?", "서울"
+#퀴즈 게임 프로 그램
+# 퀴즈게임 프로그램
 
 
-<img width="704" height="416" alt="image" src="https://github.com/user-attachments/assets/bf92366c-350b-4eda-9eb4-45af9ed7aa70" />
-
- (quiz2.py)
-
-```python
-# quiz2.py
-
-class QuizGame:
-    def __init__(self):
-        # 퀴즈 목록과 점수를 초기화합니다.
-        self.quizzes = []
-        self.score = 0
-
-    def add_quiz(self, question, answer):
-        # 문제를 추가하는 기능입니다.
-        self.quizzes.append({"question": question, "answer": answer})
-
-    def run(self):
-        # 게임을 실행하는 기능입니다.
-        print("\n--- 퀴즈 게임을 시작합니다! ---")
-        for q in self.quizzes:
-            user_ans = input(f"문제: {q['question']} 정답은? ")
-            if user_ans == q['answer']:
-                print("정답입니다! ✨")
-                self.score += 1
-            else:
-                print(f"아쉽네요. 정답은 [{q['answer']}]입니다. 😅")
-        
-        print(f"\n[게임 종료] 총 {len(self.quizzes)}문제 중 {self.score}문제를 맞혔습니다!")
-
-# 여기서부터는 실제 게임을 실행하는 부분입니다.
 
 
-if __name__ == "__main__":
-    game = QuizGame()
+* 마크다운 문법을 활용해 공부한 내용을 보기 좋게 
+정리하는 법을 배웠습니다.
+
     
-    # 문제 추가 (원하는 대로 수정 가능!)
-    game.add_quiz("대한민국의 수도는?", "서울")
-    game.add_quiz("파이썬 파일의 확장자는?", ".py")
-    game.add_quiz("1 + 1은?", "2")
-    
-    # 게임 시작
-    game.run()
-
-## 퀴즈 주제 선정 이유
-파이썬 프로그래밍의 기초 개념(데이터 타입, 함수, 클래스 등)을 재미있게 복습하기 위해 선정하였습니다.
-
-## 기능 목록
-- 퀴즈 풀기: 등록된 문제를 풀고 점수를 계산합니다.
-- 퀴즈 등록: 사용자가 새로운 문제를 추가할 수 있습니다.
-- 목록 보기: 현재 저장된 모든 퀴즈와 정답을 확인합니다.
-- 최고 점수 확인: 파일에 저장된 역대 최고 점수를 보여줍니다.
-- 자동 저장: 모든 데이터는 `state.json`에 실시간으로 저장됩니다.
-
-## 파일 구조
-- `quiz2.py`: 메인 프로그램 코드
-- `state.json`: 퀴즈 데이터 및 최고 점수 저장 파일 (UTF-8)
-
-
-
-
-  
