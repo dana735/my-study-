@@ -40,10 +40,14 @@ AI 활용 힌트: "파이썬 리스트에 있는 퀴즈 문제 3개를 for문으
 
 ---
 
-## 💻 3. 주요 학습 내용 (Content)
+## 💻 4. 주요 학습 내용 (Content)
 
 * **파이썬 기본 환경 설정 및 출력문 / 조건문 실습**
   * 사용자로부터 값을 입력받고 조건에 따라 결과를 다르게 출력하는 기본 문법(`print`, `input`, `if/else`) 학습
+
+### 과제 1: 기초 퀴즈 프로그램 (`quiz.py`)
+- **내용**: 변수, 조건문, 반복문을 활용한 간단한 퀴즈 프로그램
+
 
   1.변수화 출력(print)
 
@@ -177,14 +181,153 @@ while이 보이면 👉 "아, 조건이 맞는 동안 숫자를 올려가며 계
 ## 💡 4. 오늘의 느낀 점 & 배운 점
 * 코딩을 직접 실습하면서 에러를 해결하는 과정이 흥미로웠습니다. 
 
-if else 가  같은 선에 있어야 에러 안난다 
-#퀴즈 게임 프로 그램
-# 퀴즈게임 프로그램
+if else 가  같은 선에 있어야 에러 안난다
+
+*마크다운 문법을 활용해 공부한 내용을 보기 좋게 정리하는 법을 배웠습니다
+
+### 과제 2. 클래스를 활용한 퀴즈 게임 (`quiz2.py`) ✅ (New!)
+- **내용**: 클래스(Class)와 객체(Object)를 활용하여 구조화된 퀴즈 게임 구현
+- **학습 포인트**: 
+  - `Quiz` 클래스: 문제와 정답 데이터 관리
+  - `QuizGame` 클래스: 게임 실행 로직(점수 계산, 진행) 관리
+  - 객체 지향 프로그래밍(OOP)의 기초 이해
 
 
+import json
+import os
+
+# 1. 퀴즈 정보를 담는 클래스
+class Quiz:
+    def __init__(self, question, answer):
+        self.question = question
+        self.answer = answer
+
+    def to_dict(self):
+        return {"question": self.question, "answer": self.answer}
+
+# 2. 게임 로직 및 데이터 관리를 담당하는 클래스
+class QuizGame:
+    def __init__(self, filename='state.json'):
+        self.filename = filename
+        self.quizzes = []
+        self.high_score = 0
+        self.load_data()
+
+        # 기본 퀴즈가 없을 경우 5개 추가
+        if not self.quizzes:
+            self.add_default_quizzes()
+
+    def add_default_quizzes(self):
+        default_data = [
+            Quiz("파이썬의 창시자는? (영문)", "Guido van Rossum"),
+            Quiz("리스트에 요소를 추가하는 메서드는?", "append"),
+            Quiz("파이썬 파일의 확장자는?", ".py"),
+            Quiz("정수형을 뜻하는 파이썬 예약어는?", "int"),
+            Quiz("출력을 담당하는 함수는?", "print")
+        ]
+        self.quizzes.extend(default_data)
+        self.save_data()
+
+    # 데이터 불러오기 (JSON)
+    def load_data(self):
+        if os.path.exists(self.filename):
+            try:
+                with open(self.filename, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                    self.quizzes = [Quiz(q['question'], q['answer']) for q in data.get('quizzes', [])]
+                    self.high_score = data.get('high_score', 0)
+            except Exception as e:
+                print(f"데이터 로드 중 오류 발생: {e}")
+
+    # 데이터 저장하기 (JSON)
+    def save_data(self):
+        data = {
+            "quizzes": [q.to_dict() for q in self.quizzes],
+            "high_score": self.high_score
+        }
+        with open(self.filename, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=4)
+
+    # 퀴즈 풀기
+    def play(self):
+        print("\n--- 퀴즈를 시작합니다! ---")
+        current_score = 0
+        for q in self.quizzes:
+            user_ans = input(f"{q.question}: ")
+            if user_ans.strip().lower() == q.answer.lower():
+                print("정답입니다!")
+                current_score += 1
+            else:
+                print(f"틀렸습니다. 정답은 {q.answer}입니다.")
+        
+        print(f"\n최종 점수: {current_score}/{len(self.quizzes)}")
+        
+        if current_score > self.high_score:
+            print("✨ 최고 기록 경신! ✨")
+            self.high_score = current_score
+            self.save_data()
+
+    # 퀴즈 추가
+    def add_quiz(self):
+        question = input("새로운 퀴즈 질문을 입력하세요: ")
+        answer = input("정답을 입력하세요: ")
+        self.quizzes.append(Quiz(question, answer))
+        self.save_data()
+        print("퀴즈가 성공적으로 추가되었습니다.")
+
+    # 퀴즈 목록 보기
+    def show_list(self):
+        print("\n--- 퀴즈 목록 ---")
+        for i, q in enumerate(self.quizzes, 1):
+            print(f"{i}. {q.question} (정답: {q.answer})")
+
+    # 점수 확인
+    def show_score(self):
+        print(f"\n현재 최고 점수: {self.high_score}점")
+
+# 3. 메인 메뉴 실행
+def main():
+    game = QuizGame()
+
+    while True:
+        print("\n[ 파이썬 퀴즈 프로그램 ]")
+        print("1. 퀴즈 풀기")
+        print("2. 퀴즈 등록")
+        print("3. 퀴즈 목록 보기")
+        print("4. 최고 점수 확인")
+        print("5. 종료")
+        
+        choice = input("메뉴를 선택하세요: ")
+
+        if choice == '1':
+            game.play()
+        elif choice == '2':
+            game.add_quiz()
+        elif choice == '3':
+            game.show_list()
+        elif choice == '4':
+            game.show_score()
+        elif choice == '5':
+            print("프로그램을 종료합니다.")
+            break
+        else:
+            print("잘못된 선택입니다. 다시 입력해주세요.")
+
+if __name__ == "__main__":
+    main()
 
 
-* 마크다운 문법을 활용해 공부한 내용을 보기 좋게 
-정리하는 법을 배웠습니다.
+  ## 퀴즈 주제 선정 이유
+파이썬 프로그래밍의 기초 개념(데이터 타입, 함수, 클래스 등)을 재미있게 복습하기 위해 선정하였습니다.
 
-    
+## 기능 목록
+- 퀴즈 풀기: 등록된 문제를 풀고 점수를 계산합니다.
+- 퀴즈 등록: 사용자가 새로운 문제를 추가할 수 있습니다.
+- 목록 보기: 현재 저장된 모든 퀴즈와 정답을 확인합니다.
+- 최고 점수 확인: 파일에 저장된 역대 최고 점수를 보여줍니다.
+- 자동 저장: 모든 데이터는 `state.json`에 실시간으로 저장됩니다.
+
+## 파일 구조
+- `quiz2.py`: 메인 프로그램 코드
+- `state.json`: 퀴즈 데이터 및 최고 점수 저장 파일 (UTF-8)  
+
