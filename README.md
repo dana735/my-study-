@@ -19,6 +19,20 @@
 * **Version Control:** Git & GitHub
 
 ---
+## * 프로젝트 구조 설계
+먼저 코드를 작성하기 전, 파일 구조를 아래와 같이 잡는 것을 추천합니다.
+
+
+my-study/
+├── .gitignore       # 파이썬 캐시 파일 등을 제외
+├── README.md        # 프로젝트 설명서
+├── state.json       # 데이터 저장 파일 (자동 생성)
+└── quiz.py          # 메인 실행 코드
+
+
+.gitignore 파일 만들기 
+내용에 __pycache__/ 라고 한 줄만 적고 저장 (파이썬 실행 시 생기는 불필요한 파일을 Git이 무시하게 해줌.)
+
 
 ## 📂 3. 주요 학습 내용 (Content)
 - * 파이썬 기본 환경 설정 및 실습
@@ -185,6 +199,86 @@ if else 가  같은 선에 있어야 에러 안난다
 
 *마크다운 문법을 활용해 공부한 내용을 보기 좋게 정리하는 법을 배웠습니다
 
+[Quiz 클래스]
+개별 퀴즈의 정보를 담고 출력하는 역할을 합니다.
+
+python
+📋 복사
+class Quiz:
+    def __init__(self, question, choices, answer):
+        self.question = question
+        self.choices = choices  # 리스트 형태 [문항1, 문항2, 문항3, 문항4]
+        self.answer = answer    # 정답 번호 (1~4)
+
+    def display(self, index):
+        """문제를 화면에 출력합니다."""
+        print(f"\nQ{index}. {self.question}")
+        for i, choice in enumerate(self.choices, 1):
+            print(f"  {i}) {choice}")
+
+    def to_dict(self):
+        """JSON 저장을 위해 딕셔너리로 변환합니다."""
+        return {
+            "question": self.question,
+            "choices": self.choices,
+            "answer": self.answer
+        }
+
+
+[QuizGame 클래스]
+게임의 전체 흐름(데이터 로드, 메뉴 출력, 퀴즈 진행)을 관리합니다.
+
+python
+📋 복사
+import json
+import os
+
+class QuizGame:
+    def __init__(self):
+        self.file_path = "state.json"
+        self.quizzes = []
+        self.best_score = 0
+        self.load_data()
+
+    def load_data(self):
+        """파일에서 데이터를 불러오거나 초기화합니다."""
+        if not os.path.exists(self.file_path):
+            self.set_default_quizzes()
+            return
+
+        try:
+            with open(self.file_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                self.best_score = data.get("best_score", 0)
+                self.quizzes = [Quiz(**q) for q in data.get("quizzes", [])]
+        except (json.JSONDecodeError, Exception):
+            print("⚠️ 데이터 파일이 손상되었습니다. 기본 데이터로 시작합니다.")
+            self.set_default_quizzes()
+
+    def save_data(self):
+        """현재 상태를 JSON 파일로 저장합니다."""
+        data = {
+            "best_score": self.best_score,
+            "quizzes": [q.to_dict() for q in self.quizzes]
+        }
+        with open(self.file_path, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=4)
+
+    def set_default_quizzes(self):
+        """기본 퀴즈 5개를 설정합니다."""
+        # 예시 데이터 (본인의 주제에 맞게 수정하세요!)
+        default_data = [
+            {"question": "파이썬의 창시자는?", "choices": ["귀도 반 로섬", "제임스 고슬링", "빌 게이츠", "데니스 리치"], "answer": 1},
+            # ... 추가 4개 더 작성
+        ]
+        self.quizzes = [Quiz(**q) for q in default_data]
+        self.save_data()
+
+    # 추가 메서드들: play_quiz(), add_quiz(), show_menu() 등 구현
+
+
+
+
 ### 과제 2. 클래스를 활용한 퀴즈 게임 (`quiz2.py`) ✅ (New!)
 - **내용**: 클래스(Class)와 객체(Object)를 활용하여 구조화된 퀴즈 게임 구현
 - **학습 포인트**: 
@@ -331,4 +425,10 @@ if __name__ == "__main__":
 - `quiz2.py`: 메인 프로그램 코드
 - `state.json`: 퀴즈 데이터 및 최고 점수 저장 파일 (UTF-8)  
 
-![퀴즈 게임 실행 화면](image.png)
+## 🛠 주요 기능 업데이트
+- **JSON 데이터 저장**: 퀴즈 점수와 진행 상황이 `state.json` 파일에 자동으로 저장됩니다.
+- **메뉴 시스템**: 퀴즈 풀기, 문제 등록, 종료 기능을 선택할 수 있습니다.
+
+## 💾 데이터 저장 방식 (JSON)
+이 프로그램은 파이썬의 `json` 모듈을 사용하여 데이터를 관리합니다. 
+프로그램을 종료해도 `state.json` 파일에 기록이 남기 때문에 다음 실행 시 점수를 이어갈 수 있습니다.
