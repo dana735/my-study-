@@ -77,30 +77,39 @@ AI 활용 힌트: "파이썬 리스트에 있는 퀴즈 문제 3개를 for문으
 💻 80점 기준으로 만든 실제 파이썬 코드 예시
 
 
-```python
+python
 # 점수에 따른 합격 여부 판별 예제
-score = int(input("점수를 입력하세요: "))
 
-*60점 기준 
-score = 60
+```python
+score = int(input("점수를 입력하세요: "))
 
 if score >= 60:
     print("합격입니다!")
 else:
     print("불합격입니다.")
+```                          
+
+- 조건문과 반복문 활용      ← 그 다음에 마크다운 내용 작성
+
+
+
 - * 조건문과 반복문 활용 (예제 코드 작성)
 
 # 1단계: 변수 (성적 값을 상자에 담기)
 score = 85
 
 # 2단계: 조건문 및 3단계: 출력 (판단해서 화면에 보여주기)
+
+```python
 if score >= 80:
     print("합격입니다!")
 else:
     print("불합격입니다.")
+```                   ← 여기 추가!
+
+다른 예              ← 이제 정상적으로 마크다운으로 보임
 
 
-다른 예
 
 score = 85  # 변수(score)에 85점을 저장
 
@@ -145,27 +154,22 @@ fruits 상자 안에서 첫 번째 "사과"를 꺼내 f에 넣고 print ➔ 화�
 
 다음 파이썬 코드를 실행했을 때 화면에 출력되는 결과로 올바른 것은?
 
+```python
 numbers = [10, 20, 30]
 for num in numbers:
     print(num)
+```                          ← for문 코드블록 닫기!
 
-    10
-    20
-    30
-
-*for vs while 차이점 한눈에 보기
-for (개수가 정해져 있을 때): "목록에 있는 것 처음부터 끝까지(3번만) 반복해!"
-
-while (조건이 참일 동안 계속): "~하는 동안 끝없이(조건이 끝날 때까지) 계속 반복해!"
+*for vs while 차이점 한눈에 보기   ← 이제 마크다운으로 정상 출력
 
 while문 코드 예시
-"숫자가 1부터 시작해서 3이 될 때까지 계속 반복해라" 할 때 while을 씁니다.
 
+```python
 count = 1
-
 while count <= 3:
     print(count)
-    count = count + 1  # 숫자를 1씩 더해줍니다.
+    count = count + 1
+```                          ← while문 코드블록 닫기!
 
     🔍 컴퓨터가 동작하는 순서
 count가 1입니다. (3 이하가 맞으니 화면에 1 출력 ➔ 숫자가 2가 됨)
@@ -202,7 +206,7 @@ if else 가  같은 선에 있어야 에러 안난다
 [Quiz 클래스]
 개별 퀴즈의 정보를 담고 출력하는 역할을 합니다.
 
-python
+```python
 📋 복사
 class Quiz:
     def __init__(self, question, choices, answer):
@@ -223,12 +227,12 @@ class Quiz:
             "choices": self.choices,
             "answer": self.answer
         }
-
+        ```
 
 [QuizGame 클래스]
 게임의 전체 흐름(데이터 로드, 메뉴 출력, 퀴즈 진행)을 관리합니다.
 
-python
+```python
 📋 복사
 import json
 import os
@@ -273,31 +277,34 @@ class QuizGame:
         ]
         self.quizzes = [Quiz(**q) for q in default_data]
         self.save_data()
-
+        ```
     # 추가 메서드들: play_quiz(), add_quiz(), show_menu() 등 구현
 
 
 
 
-### 과제 2. 클래스를 활용한 퀴즈 게임 (`quiz2.py`) ✅ (New!)
-- **내용**: 클래스(Class)와 객체(Object)를 활용하여 구조화된 퀴즈 게임 구현
-- **학습 포인트**: 
-  - `Quiz` 클래스: 문제와 정답 데이터 관리
-  - `QuizGame` 클래스: 게임 실행 로직(점수 계산, 진행) 관리
-  - 객체 지향 프로그래밍(OOP)의 기초 이해
+## 과제 2. 클래스를 활용한 퀴즈 게임 (`quiz2.py`)
 
+**내용**: 클래스(Class)와 객체(Object)를 활용하여 구조화된 퀴즈 게임 구현
+
+**학습 포인트**:
+- `Quiz` 클래스: 문제와 정답 데이터 관리
+- `QuizGame` 클래스: 게임 실행 로직(점수 계산, 진행) 관리
+- 객체 지향 프로그래밍(OOP)의 기초 이해
 
 import json
 import os
 
 # 1. 퀴즈 정보를 담는 클래스
 class Quiz:
-    def __init__(self, question, answer):
-        self.question = question
-        self.answer = answer
+    def __init__(self, ...):
+        ...
 
-    def to_dict(self):
-        return {"question": self.question, "answer": self.answer}
+    def to_dict(self):   # ✅ 4칸 들여쓰기
+        return {
+            "question": self.question,
+            "answer": self.answer
+        }
 
 # 2. 게임 로직 및 데이터 관리를 담당하는 클래스
 class QuizGame:
@@ -311,7 +318,7 @@ class QuizGame:
         if not self.quizzes:
             self.add_default_quizzes()
 
-    def add_default_quizzes(self):
+    def add_default_quizzes(self):   
         default_data = [
             Quiz("파이썬의 창시자는? (영문)", "Guido van Rossum"),
             Quiz("리스트에 요소를 추가하는 메서드는?", "append"),
@@ -322,25 +329,32 @@ class QuizGame:
         self.quizzes.extend(default_data)
         self.save_data()
 
-    # 데이터 불러오기 (JSON)
-    def load_data(self):
+
+class QuizGame:
+    def __init__(self, filename='state.json'):
+        ...
+
+    def load_data(self):    
         if os.path.exists(self.filename):
             try:
                 with open(self.filename, 'r', encoding='utf-8') as f:
                     data = json.load(f)
-                    self.quizzes = [Quiz(q['question'], q['answer']) for q in data.get('quizzes', [])]
+                    self.quizzes = [Quiz(q['question'], q['answer'])
+                                    for q in data.get('quizzes', [])]
                     self.high_score = data.get('high_score', 0)
             except Exception as e:
                 print(f"데이터 로드 중 오류 발생: {e}")
 
-    # 데이터 저장하기 (JSON)
-    def save_data(self):
+    def save_data(self):    
         data = {
             "quizzes": [q.to_dict() for q in self.quizzes],
             "high_score": self.high_score
         }
         with open(self.filename, 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=4)
+
+    def play(self):         
+        ...
 
     # 퀴즈 풀기
     def play(self):
