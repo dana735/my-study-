@@ -540,4 +540,4 @@ git push origin main
 
 ### 🖥️ 실행 결과 화면
 
-![실행화면](./images/screenshot.png)
+![실행화면](.images/screenshot.png)
