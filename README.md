@@ -507,3 +507,36 @@ JSON (제이슨)
 입력(Parameter)과 출력(Return)이 있는가? (데이터를 받아서 처리하고 결과를 돌려주는 구조인지 확인!)
 
 함수 구조
+
+--
+🛠 브랜치 생성 및 병합 실습 (마지막 관문)
+1. 새 브랜치 생성 및 이동
+터미널에 아래 명령어를 입력하여 feature/final-merge라는 이름의 브랜치를 만듭니다.
+
+
+git checkout -b feature/final-merge
+2. 파일 수정 (아주 작은 수정도 괜찮아요!)
+quiz2.py 파일 맨 아래에 # 브랜치 병합 테스트 완료라는 주석을 한 줄 추가하고 저장(Ctrl + S) 하세요.
+3. 새 브랜치에서 커밋하기
+
+
+git add .
+git commit -m "브랜치에서 최종 수정 진행"
+
+4. 메인 브랜치로 돌아가기
+
+git checkout main
+5. 브랜치 합치기 (Merge)
+이제 feature/final-merge에서 작업한 내용을 main으로 가져옵니다.
+
+
+git merge feature/final-merge
+(이때 "Fast-forward"라는 메시지가 뜨면 성공입니다!)
+
+6. GitHub에 최종 푸시
+
+git push origin main
+
+
+### 🖥️ 실행 결과 화면
+![실행결과](./1435078.png)
