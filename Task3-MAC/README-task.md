@@ -233,5 +233,6 @@ filter_pattern = [
 
 ### 실행 결과 보고서
 
-![main_v2.py 실행 결과](main_v2_result.png)
+![main_v2.py 실행 결과](main-v2-result.png)
+
 
