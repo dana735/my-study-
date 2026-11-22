@@ -363,8 +363,7 @@ MAC 연산으로 계산한 Cross와 X의 점수가 거의 같으면 어느 쪽�
 
 ### 터미널 실행 결과
 
-여기에 Python 3 실행 결과 캡처 이미지를 삽입할 예정입니다.
-
+<img width="309" height="479" alt="image" src="https://github.com/user-attachments/assets/3d9f494f-01d0-45e8-b0a7-abf2a0316217" />
 
 
 
