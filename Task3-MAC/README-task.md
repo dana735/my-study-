@@ -366,6 +366,12 @@ MAC 연산으로 계산한 Cross와 X의 점수가 거의 같으면 어느 쪽�
 <img width="309" height="479" alt="image" src="https://github.com/user-attachments/assets/3d9f494f-01d0-45e8-b0a7-abf2a0316217" />
 
 
+ Cross 점수: 4.90
+- X 점수: 4.90
+- 정답: x
+- 예측: +
+- 결과: 실패
+즉, 점수는 동점인데 프로그램이 Cross(+)로 판단해서 실패로 처리.
 
 ### 큰 격자(행렬)를 줄이는 3가지 방법
 1.구역별 대표값 추출(풀링·블록 요약)
