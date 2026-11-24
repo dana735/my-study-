@@ -442,3 +442,44 @@ python quiz2.py
 데이터를 안전하게 관리하는 것도 중요합니다.
 
 ---
+## 14. 브랜치 커밋 및 원격 저장소 전송
+
+### 14-1. 변경 사항 선택
+
+```powershell
+git add TEST_GUIDE.md images/
+```
+
+실습 가이드와 증빙 사진을 커밋 대상으로 선택합니다.
+
+### 14-2. 브랜치 커밋
+
+```powershell
+git commit -m "Add Task 2 test guide and branch practice"
+```
+
+test-guide 브랜치에서 변경 이력을 저장하였습니다.
+
+![브랜치 커밋](images/브랜치커밋.png)
+
+### 14-3. 원격 브랜치 전송
+
+```powershell
+git push -u origin test-guide
+```
+
+GitHub에 test-guide 브랜치를 생성하고
+로컬 브랜치와 원격 브랜치를 연결하였습니다.
+
+![브랜치 푸시](images/브랜치푸쉬.png)
+
+### 14-4. 실습 핵심 개념
+
+- commit : 로컬 저장소에 변경 이력 기록
+- push : 원격 저장소에 변경 이력 전송
+- merge : 서로 다른 브랜치의 작업 내용 통합
+
+브랜치를 원격 저장소에 전송하는 것과
+main 브랜치에 병합하는 것은 서로 다른 작업입니다.
+
+---
