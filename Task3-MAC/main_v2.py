@@ -94,8 +94,8 @@ def classify(matrix, filters):
         if not valid_matrix(normalized_filters[key], size):
             raise ValueError(f"{key} 필터가 올바르지 않습니다.")
 
-    cross_score = similarity(matrix, normalized_filters["Cross"])
-    x_score = similarity(matrix, normalized_filters["X"])
+    cross_score = mac(matrix, normalized_filters["Cross"])
+    x_score =mac(matrix, normalized_filters["X"])
 
     if abs(cross_score - x_score) < EPSILON:
         result = "UNDECIDED"
@@ -221,7 +221,7 @@ def json_test(data):
                 times.append(elapsed)
 
             average = sum(times) / REPEAT
-            operations = size * size * 6
+            operations = size * size * 2
 
             correct = result == expected
 
