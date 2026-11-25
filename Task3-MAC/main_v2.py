@@ -154,15 +154,15 @@ def manual_test():
 
             except ValueError:
                 print("숫자만 입력하세요.")
-
+    start = time.perf_counter()
     result, cross_score, x_score = classify(
         matrix, make_3x3_filters()
     )
-
+    elapsed_ms = (time.perf_counter() - start) * 1000
     print(f"Cross 점수: {cross_score:.6f}")
     print(f"X 점수: {x_score:.6f}")
     print(f"판정 결과: {result}")
-
+    print(f"연산 시간: {elapsed_ms:.6f} ms")
 
 # 8. JSON 데이터 검사 및 성능 측정
 def json_test(data):
