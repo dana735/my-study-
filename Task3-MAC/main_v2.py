@@ -250,8 +250,7 @@ def json_test(data):
             failed_cases.append(name)
             print("검사 결과: FAIL")
             print(f"실패 이유: {error}")
-
-     return passed, failed, failed_cases
+    return passed, failed, failed_cases
 
 
 # 9. 최종 보고서
