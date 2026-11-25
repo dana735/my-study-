@@ -70,22 +70,32 @@ def valid_matrix(matrix, size=None):
     return True
 
 
+
 # 5. Cross와 X 패턴 판정
 def classify(matrix, filters):
     if not valid_matrix(matrix):
-        raise ValueError("입력 배열의 모양이나 숫자가 올바르지 않습니다.")
+        raise ValueError("입력 배열이 올바르지 않습니다.")
 
     if not isinstance(filters, dict):
         raise ValueError("필터 데이터가 올바르지 않습니다.")
 
+    normalized_filters = {}
+
+    for key, value in filters.items():
+        label = normalize_label(key)
+        if label in ("Cross", "X"):
+            normalized_filters[label] = value
+
     size = len(matrix)
 
-    for key in ("cross", "x"):
-        if key not in filters or not valid_matrix(filters[key], size):
-            raise ValueError(f"{key} 필터의 크기나 값이 잘못되었습니다.")
+    for key in ("Cross", "X"):
+        if key not in normalized_filters:
+            raise ValueError(f"{key} 필터가 없습니다.")
+        if not valid_matrix(normalized_filters[key], size):
+            raise ValueError(f"{key} 필터가 올바르지 않습니다.")
 
-    cross_score = similarity(matrix, filters["cross"])
-    x_score = similarity(matrix, filters["x"])
+    cross_score = similarity(matrix, normalized_filters["Cross"])
+    x_score = similarity(matrix, normalized_filters["X"])
 
     if abs(cross_score - x_score) < EPSILON:
         result = "UNDECIDED"
@@ -95,8 +105,7 @@ def classify(matrix, filters):
         result = "X"
 
     return result, cross_score, x_score
-
-
+    
 # 6. 3x3 기본 필터
 def make_3x3_filters():
     return {
@@ -161,18 +170,19 @@ def json_test(data):
 
     if not isinstance(data, dict):
         print("오류: JSON 최상위 구조가 올바르지 않습니다.")
-        return 0, 1
+        return 0, 1, ["JSON 데이터 오류"]   
 
     filters = data.get("filters")
     patterns = data.get("patterns")
 
     if not isinstance(filters, dict) or not isinstance(patterns, dict):
         print("오류: filters 또는 patterns가 올바르지 않습니다.")
-        return 0, 1
+        return 0, 1, ["JSON 데이터 오류"]     
 
     passed = 0
     failed = 0
-
+    failed_cases = []
+    
     for name, item in patterns.items():
         print(f"\n패턴: {name}")
 
@@ -219,7 +229,8 @@ def json_test(data):
                 passed += 1
                 status = "PASS"
             else:
-                failed += 1
+                failed += 1 
+                failed_cases.append(name)
                 status = "FAIL"
 
             print(f"크기: {size}x{size}")
@@ -236,14 +247,15 @@ def json_test(data):
 
         except (ValueError, TypeError, KeyError, ZeroDivisionError) as error:
             failed += 1
+            failed_cases.append(name)
             print("검사 결과: FAIL")
             print(f"실패 이유: {error}")
 
-    return passed, failed
+     return passed, failed, failed_cases
 
 
 # 9. 최종 보고서
-def report(passed, failed):
+def report(passed, failed, failed_cases):
     total = passed + failed
 
     print("\n" + "=" * 50)
@@ -253,7 +265,7 @@ def report(passed, failed):
     print(f"전체 검사: {total}개")
     print(f"PASS: {passed}개")
     print(f"FAIL: {failed}개")
-
+    print(f"실패 케이스 목록: {failed_cases}")
     if total:
         print(f"정확도: {passed / total * 100:.2f}%")
 
@@ -285,9 +297,9 @@ def main():
         return
 
     manual_test()
-    passed, failed = json_test(data)
-    report(passed, failed)
-
+   
+    passed, failed, failed_cases = json_test(data)
+    report(passed, failed, failed_cases)
 
 if __name__ == "__main__":
     main()
