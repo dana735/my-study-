@@ -415,6 +415,36 @@ git push origin main
 
 위 명령어는 실습 절차의 예시입니다.
 
+브랜치 병합(Merge) 및 최종 반영 과정
+
+브랜치는 기존 작업물을 유지하면서 새로운 작업을 별도로 진행하기 위한 기능입니다. 수정 및 검증이 완료되면 merge를 통해 변경 내용을 main 브랜치에 반영합니다.
+
+main (기존 README)
+        ↓
+git checkout -b feature
+        ↓
+feature (새로운 작업 브랜치)
+        ↓
+파일 수정 → add → commit
+        ↓
+git checkout main
+        ↓
+git merge feature
+        ↓
+main (변경 내용이 반영된 README)
+        ↓
+git push origin main
+        ↓
+GitHub 최종 반영
+
+구분| 역할
+Branch| 별도의 작업 흐름 생성
+Checkout| 브랜치 이동
+Merge| 변경 내용 병합
+Push| 원격 저장소에 반영
+
+브랜치는 새로운 폴더를 만드는 것이 아니라 Git 내부에서 별도의 작업 이력을 관리하는 기능입니다. 이를 통해 기존 작업물을 안전하게 유지하면서 새로운 기능을 추가하고, 검증 후 병합할 수 있습니다.
+
 ### 실제 Git 작업 기록
 
 기존 캡처에서 커밋 횟수 11회 및 12회, `main` 브랜치로의 병합과 `git push origin main` 실행 기록을 확인할 수 있습니다.
