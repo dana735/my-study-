@@ -3,7 +3,7 @@ import json
 import math
 import time
 from pathlib import Path
-
+EPSILON = 1e-9
 
 # 1. MAC 연산: 곱한 값을 모두 더하기
 def mac(matrix, kernel):
@@ -32,12 +32,14 @@ def classify(matrix, filters):
     cross_score = similarity(matrix, filters["cross"])
     x_score = similarity(matrix, filters["x"])
 
-    if cross_score >= x_score:
+    if abs(cross_score - x_score) < EPSILON:
+        result = "UNDECIDED"
+    elif cross_score > x_score:
         result = "+"
     else:
         result = "x"
 
-    return result, cross_score, x_score
+    return result, cross_score, x_score   
 
 
 # 4. 3x3 패턴의 필터 만들기
@@ -86,14 +88,21 @@ def user_input_test():
             except ValueError:
                 print("숫자만 입력해 주세요.")
 
+    
+    start = time.perf_counter()
+
     result, cross_score, x_score = classify(
         matrix, make_3x3_filters()
     )
+
+    elapsed_ms = (time.perf_counter() - start) * 1000
 
     print("\nMAC 패턴 분석 결과")
     print(f"십자가 점수: {cross_score:.4f}")
     print(f"X 점수: {x_score:.4f}")
     print(f"판정 결과: {result}")
+    print(f"연산 시간: {elapsed_ms:.6f} ms")
+   
 
 
 # 6. JSON 데이터 분석 및 성능 측정
